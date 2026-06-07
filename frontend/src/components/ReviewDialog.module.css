@@ -1,0 +1,70 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.modal {
+  background-color: light-dark(#fff, #333);
+  padding: 24px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.menuBar {
+  border-bottom: 1px solid #ddd;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.menuBarBtn {
+  margin-right: 5px;
+  font-weight: normal;
+
+  &.bold {
+    font-weight: bold;
+  }
+
+  &.italic {
+    font-style: italic;
+  }
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.saveBtn {
+  background-color: #2563eb;
+  color: white;
+}
+
+.editorWrapper {
+  margin-bottom: 50px;
+  height: 200px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.editor {
+  padding: 10px;
+  min-height: 100px;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}

@@ -1,0 +1,31 @@
+.reviewSection {
+  background-color: light-dark(#fff, #333);
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.btn {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 16px;
+}
+
+.reviewButton {
+  background-color: #ebd125;
+  color: #000;
+}
+
+.reviewList {
+  border-bottom: 1px solid #eee;
+  padding: 12px 0;
+}
