@@ -1,12 +1,11 @@
-import { type Editor, EditorContent, useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import { Placeholder } from "@tiptap/extensions";
+import { type Editor, EditorContent } from "@tiptap/react";
 
 import styles from "./ReviewDialog.module.css";
 
 interface ReviewDialogProps {
+  readonly editor: Editor;
   readonly onDialogClose: () => void;
-  readonly handleSaveReview: () => void;
+  readonly handleSaveReview: () => Promise<void>;
 }
 
 function MenuBar({ editor }: { editor: Editor }) {
@@ -31,20 +30,10 @@ function MenuBar({ editor }: { editor: Editor }) {
 }
 
 export function ReviewDialog({
+  editor,
   handleSaveReview,
   onDialogClose,
 }: Readonly<ReviewDialogProps>) {
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      Placeholder.configure({
-        placeholder: "Start typing here ...",
-        emptyEditorClass: "is-editor-empty",
-      }),
-    ],
-    content: "",
-  });
-
   return (
     <div className={styles.modalOverlay}>
       <div className={styles.modal}>

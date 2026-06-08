@@ -29,7 +29,7 @@ async function execute() {
     db.exec(`DELETE FROM comments;`);
 
     const comments = [
-      '<div><div><strong>IMPORTANT!</strong>&nbsp;This is the first comment.</div><div style="font-style: italic;">Note: This formatted comment.</div></div>',
+      "<div><div><strong>IMPORTANT!</strong>&nbsp;This is the first comment.</div><div>Note: This formatted comment.</div></div>",
       "<div><h2>This is heading</h2><p>This is a html rendering in react app.</p></div>",
     ];
 

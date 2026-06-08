@@ -38,14 +38,14 @@ export function HomePage() {
     content: "",
   });
 
-  const handleSaveReview = () => {
+  const handleSaveReview = async () => {
     if (editor) {
       const html = editor.getHTML();
       if (html !== "<p></p>") {
         setComments([...comments, { id: comments.length + 1, text: html }]);
         editor.commands.clearContent();
         setIsModalOpen(false);
-        addComment(html);
+        await addComment(html);
       }
     }
   };
@@ -55,7 +55,7 @@ export function HomePage() {
       <h1 className={styles.header}>Now Showing</h1>
 
       <MoviePoster
-        posterUrl="./poster.png"
+        posterUrl="../poster.png"
         movieTitle="The XSS Attack"
         movieOverview="A digital thriller that explores the vulnerabilities of the modern
             world."
@@ -68,6 +68,7 @@ export function HomePage() {
 
       {isModalOpen && (
         <ReviewDialog
+          editor={editor}
           onDialogClose={() => setIsModalOpen(false)}
           handleSaveReview={handleSaveReview}
         />
