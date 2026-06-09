@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS - Frame Ancestor the-xss-attack</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+
+      *,
+      *::after,
+      *::before {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        background-color: #006eff;
+      }
+
+      #app {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: light-dark(#fff, #121212);
+      }
+
+      iframe {
+        position: absolute;
+        height: 95%;
+        width: 95%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <iframe src="http://localhost:5173"></iframe>
+    </div>
+  </body>
+</html>
