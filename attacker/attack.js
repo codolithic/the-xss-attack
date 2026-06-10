@@ -12,7 +12,7 @@ async function mimicSubmitForm(e) {
     body: JSON.stringify(parsedData),
   });
 
-  const result = await response.json();
+  // const result = await response.json();
   alert("Booking successful!!!");
   window.location.href = "http://localhost:5173";
 }

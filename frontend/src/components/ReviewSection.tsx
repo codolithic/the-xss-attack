@@ -26,6 +26,7 @@ export function ReviewSection({
       {comments.map((c) => (
         <div key={c.id} className={styles.reviewList}>
           <div dangerouslySetInnerHTML={{ __html: c.text }} />
+          {/* <div>{c.text}</div> */}
         </div>
       ))}
     </div>
