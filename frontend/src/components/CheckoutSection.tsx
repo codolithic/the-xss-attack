@@ -1,27 +1,38 @@
 import { loadStripe } from "@stripe/stripe-js";
-import { Elements, CardElement, useStripe } from "@stripe/react-stripe-js";
+import {
+  Elements,
+  CardElement,
+  useStripe,
+  useElements,
+} from "@stripe/react-stripe-js";
+import { useNavigate } from "react-router-dom";
 
 import styles from "./CheckoutSection.module.css";
 
-const stripePromise = loadStripe("pk_test_your_key");
+const stripePromise = loadStripe("dev_secret_key");
 
-interface CheckoutSectionProps {
-  readonly onSubmit: (data: FormData) => Promise<void>;
-}
-
-function CheckoutForm({ onSubmit }: Readonly<CheckoutSectionProps>) {
+function CheckoutForm() {
+  const navigate = useNavigate();
   const stripe = useStripe();
+  const elements = useElements();
+
+  if (!stripe || !elements) return;
 
   return (
     <form
-      onSubmit={(event) => {
+      id="stripe-form"
+      onSubmit={async (event) => {
         event.preventDefault();
-        if (!stripe) return;
-        onSubmit(new FormData(event.target));
+        navigate("/success");
       }}
     >
       <div className={styles.stripeElement}>
-        <CardElement options={{ style: { base: { fontSize: "16px" } } }} />
+        <CardElement
+          options={{
+            style: { base: { fontSize: "16px" } },
+            hidePostalCode: true,
+          }}
+        />
       </div>
       <button disabled={!stripe} className={styles.payButton}>
         Confirm Purchase
@@ -30,14 +41,14 @@ function CheckoutForm({ onSubmit }: Readonly<CheckoutSectionProps>) {
   );
 }
 
-export function CheckoutSection({ onSubmit }: Readonly<CheckoutSectionProps>) {
+export function CheckoutSection() {
   return (
     <div className={styles.card}>
       <h2 className={styles.header}>Checkout</h2>
       <p className={styles.subHeader}>Ticket for "The XSS Attack"</p>
       <div id="stripe-content">
         <Elements stripe={stripePromise}>
-          <CheckoutForm onSubmit={onSubmit} />
+          <CheckoutForm />
         </Elements>
       </div>
     </div>
