@@ -1,3 +1,4 @@
+export { Button } from "./Button";
 export { MoviePoster } from "./MoviePoster";
 export { ReviewDialog } from "./ReviewDialog";
 export { ReviewSection } from "./ReviewSection";

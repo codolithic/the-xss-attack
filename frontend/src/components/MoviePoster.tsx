@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { Button } from ".";
 
 import styles from "./MoviePoster.module.css";
 
@@ -21,12 +22,13 @@ export function MoviePoster({
       <div className={styles.content}>
         <h2 className={styles.title}>The XSS Attack</h2>
         <p>{movieOverview}</p>
-        <button
+        {/* <button
           className={`${styles.btn} ${styles.bookButton}`}
           onClick={() => navigate("/book")}
         >
           Book Ticket
-        </button>
+        </button> */}
+        <Button text="Book Ticket" onClick={() => navigate("/book")} />
       </div>
     </div>
   );

@@ -12,6 +12,9 @@ const policies = [
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  html: {
+    cspNonce: "__CSP_NONCE_PLACEHOLDER__",
+  },
   server: {
     headers: {
       "content-security-policy": policies.join("; "),

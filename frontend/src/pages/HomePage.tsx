@@ -35,6 +35,7 @@ export function HomePage() {
         emptyEditorClass: "is-editor-empty",
       }),
     ],
+    injectCSS: false,
     content: "",
   });
 

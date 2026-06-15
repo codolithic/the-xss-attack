@@ -30,7 +30,7 @@ async function serveIndex(r) {
       "utf8",
     );
 
-    const html = template.replace(/NONCE_PLACEHOLDER/g, nonce);
+    const html = template.replace(/__CSP_NONCE_PLACEHOLDER__/g, nonce);
 
     r.headersOut["Content-Type"] = "text/html";
     r.headersOut["Content-Security-Policy"] = buildCsp(nonce);
